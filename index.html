@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="styles.css" rel="stylesheet"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2064%2064%27%3E%0A%3Cdefs%3E%3ClinearGradient%20id%3D%27g%27%20x1%3D%270%27%20x2%3D%271%27%20y1%3D%270%27%20y2%3D%271%27%3E%0A%3Cstop%20offset%3D%270%27%20stop-color%3D%27%23111%27/%3E%3Cstop%20offset%3D%271%27%20stop-color%3D%27%23333%27/%3E%3C/linearGradient%3E%3C/defs%3E%0A%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2714%27%20fill%3D%27url%28%23g%29%27/%3E%0A%3Ctext%20x%3D%2732%27%20y%3D%2742%27%20font-size%3D%2734%27%20text-anchor%3D%27middle%27%20font-family%3D%27Arial%2C%20sans-serif%27%20fill%3D%27white%27%3EM%3C/text%3E%0A%3C/svg%3E"/>
+<title>Marcelo Salazar - Economist</title>
+<style>html { scroll-behavior: smooth; }
+
+:root{
+  --sidebar-w: clamp(190px, 22vw, 240px);
+  --container-w: clamp(760px, 74vw, 980px);
+  --card-pad: clamp(16px, 2.2vw, 22px);
+  --gap: clamp(10px, 1.6vw, 14px);
+}
+
+/* Sidebar layout */
+.layout{
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: var(--sidebar-w);
+  padding: 18px 14px;
+  overflow: auto;
+
+  /* Match background (no visible rectangle) */
+  background: rgba(0, 0, 0, 0.001);
+  border-right: 0;
+
+  /* Optional blur for a classy glass effect */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 40;
+}
+
+.sidebar .brand{
+  display: block;
+  font-weight: 700;
+  text-decoration: none;
+  color: inherit;
+  opacity: .95;
+  margin-bottom: 14px;
+  padding: 8px 10px;
+  border-radius: 12px;
+}
+
+.sidebar a{
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  opacity: .85;
+  padding: 8px 10px;
+  border-radius: 12px;
+  margin-bottom: 6px;
+}
+
+.sidebar a:hover{
+  opacity: 1;
+  background: rgba(255,255,255,.08);
+}
+
+/* Light mode hover */
+html:not([data-theme="dark"]) .sidebar a:hover{
+  background: rgba(0,0,0,.06);
+}
+
+.main{
+  width: 100%;
+  margin-left: var(--sidebar-w);
+}
+
+/* Mobile: off-canvas sidebar */
+.sidebar-toggle{
+  display: none;
+}
+
+@media (max-width: 900px){
+  .sidebar{
+    transform: translateX(-100%);
+    transition: transform .2s ease;
+  }
+  .sidebar.open{
+    transform: translateX(0);
+  }
+  .main{
+    margin-left: 0;
+  }
+  .sidebar-toggle{
+    display: inline-flex;
+    position: fixed;
+    left: 14px;
+    top: 14px;
+    z-index: 60;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 0;
+    cursor: pointer;
+    background: rgba(0,0,0,0.001);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+}
+
+/* Prevent fixed UI from covering headings when jumping */
+#about, #highlights, #experience, #education, #skills, #volunteering, #courses, #interests{
+  scroll-margin-top: 90px;
+}
+
+/* Avatar image */
+.avatar img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+/* Responsive container and cards */
+.container{
+  max-width: var(--container-w);
+  margin: 0 auto;
+  padding: clamp(16px, 3vw, 28px);
+}
+
+.card{
+  padding: var(--card-pad);
+}
+
+/* Make contact “tags” wrap nicely and reflow on resize */
+.contact-links{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: var(--gap);
+  align-items: stretch;
+  margin-top: 14px;
+}
+
+.contact-link{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: clamp(10px, 1.4vw, 12px) clamp(12px, 1.8vw, 14px);
+  border-radius: 14px;
+  line-height: 1.2;
+  white-space: normal;
+  text-align: center;
+}
+
+@media (max-width: 520px){
+  .contact-links{ grid-template-columns: 1fr; }
+  .contact-link{ justify-content: flex-start; text-align: left; }
+}
+
+/* Responsive skills grid */
+.skills-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: var(--gap);
+}
+.skill-item{
+  padding: clamp(14px, 2vw, 18px);
+  border-radius: 16px;
+  font-size: clamp(14px, 1.3vw, 16px);
+}
+
+/* Reduce motion for accessibility + perf */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *{ animation: none !important; transition: none !important; }
+}
+</style></head>
+<body>
+<button aria-label="Toggle navigation" class="sidebar-toggle" onclick="toggleSidebar()" type="button">☰</button><div class="theme-toggle" onclick="toggleTheme()">
+<span class="icon">🌙</span>
+</div>
+<div class="layout"><aside class="sidebar" id="sidebar"><a class="brand" href="#top">Marcelo</a>
+  <a href="#about">About</a>
+  <a href="#highlights">Highlights</a>
+  <a href="#experience">Experience</a>
+  <a href="#education">Education</a>
+  <a href="#skills">Skills</a>
+  <a href="#volunteering">Volunteering</a>
+  <a href="#courses">Courses</a>
+  <a href="#interests">Interests</a>
+</aside><main class="main"><div class="container">
+<header class="header fade-in" id="top">
+<div class="avatar"><img alt="Marcelo Salazar Lucano" src="avatar.jpg"/></div>
+<h1 class="name">Marcelo Salazar Lucano</h1>
+<p class="title">Economist</p>
+<p class="location">📍 Lima, Peru</p>
+<div class="contact-links">
+<a class="contact-link" href="mailto:marcelo.salazarl@pucp.edu.pe">
+            📧 marcelo.salazarl@pucp.edu.pe
+          </a>
+<a class="contact-link" href="https://www.linkedin.com/in/marcelo-salazarl" target="_blank">
+            💼 LinkedIn
+          </a>
+<a class="contact-link" href="https://github.com/KeelanJon" target="_blank">
+            🐙 GitHub
+          </a>
+<a class="contact-link" href="https://wa.me/51974521003">
+            📱 +(51) 974 521 003
+          </a>
+<a class="contact-link" href="CV__BASE.pdf" target="_blank">📄 Download CV (PDF)</a>
+<a class="contact-link" href="https://www.youtube.com/@hablandoentreratones/videos" target="_blank">▶️ YouTube</a></div>
+</header>
+<section class="section fade-in stagger-1 stagger-1" id="about">
+<h2 class="section-title">👋 About Me</h2>
+<div class="card">
+<p class="about-text">
+            Economics student (6th semester). I enjoy solving 
+            problems and creating data-based solutions. 
+            Interested in how macroeconomic shocks affect sector 
+            profitability. Experience in the corrugated packaging 
+            sector, focused on cash flow and profit impacts from 
+            global events. Learning Kaizen and Six Sigma, and 
+            following global trends through current data.
+          </p>
+</div>
+</section>
+<section class="section fade-in stagger-2" id="highlights">
+  <h2 class="section-title">✨ Highlights</h2>
+  <div class="card">
+    <ul class="card-list">
+      <li>Automated machine-level production planning from daily orders using an Excel workflow, reducing manual scheduling work.</li>
+      <li>Built productivity and efficiency KPI reporting in Power BI by importing operator-recorded data from planning lists.</li>
+      <li>Top 10% in PUCP Social Sciences Faculty, with a focus on how macroeconomic shocks affect sector profitability and firm cash flow.</li>
+    </ul>
+  </div>
+</section>
+<section class="section fade-in stagger-3" id="experience">
+  <h2 class="section-title">💼 Experience</h2><div class="card">
+    <div class="card-header"><div><h3 class="card-title">Production Planning Analyst (Junior)</h3>
+    <p class="card-subtitle">Babilonia Corrugados — Lima, Peru</p></div>
+    </div><p class="card-meta">📅 Jun 2025 - Present</p><ul class="card-list">
+    <li>Automated machine-level production planning from the daily order list using an Excel workflow.</li>
+    <li>Built productivity and efficiency KPI reports using a Power BI template, updated by importing 
+      operator-recorded data from the planning lists.</li>
+    <li>Reduced manual scheduling work (order-by-order checkbox selection) by creating a structured 
+      and repeatable system.</li>
+    <li>Supported shop-floor planning with a focus on final finishing machines, improving coordination and workload visibility.</li></ul></div></section>
+<section class="section fade-in stagger-4" id="education"><h2 class="section-title">🎓 Education</h2><div class="card"><div class="card-header"><div><h3 class="card-title">Bachelor's in Economics (in progress)</h3><p class="card-subtitle">Pontificia Universidad Católica del Perú (PUCP) — Lima, Peru</p></div></div><p class="card-meta">📅 2023 - 2028</p><ul class="card-list"><li>Ranked in the top 10% of the Faculty of Social Sciences.</li><li>Cumulative GPA: 16.87/20.</li></ul></div></section>
+<section class="section fade-in stagger-5" id="skills"><h2 class="section-title">🛠️ Skills</h2>
+      <div class="skills-grid">
+      <div class="skill-item"><span class="skill-emoji">📊</span>Excel (Intermediate)</div>
+      <div class="skill-item"><span class="skill-emoji">📈</span>Power BI (Basic)</div>
+      <div class="skill-item"><span class="skill-emoji">🐍</span>Python (Basic)</div>
+      <div class="skill-item"><span class="skill-emoji">🗣️</span>Spanish (Native)</div>
+      <div class="skill-item"><span class="skill-emoji">🌍</span>English (Intermediate)</div>
+      <div class="skill-item"><span class="skill-emoji">🧾</span>LaTeX (Basic)</div>
+      <div class="skill-item"><span class="skill-emoji">🎥</span>YouTube (Hablando entre Ratones)</div>
+    </div></section>
+<section class="section fade-in" id="volunteering">
+    <h2 class="section-title">🤝 Volunteering</h2><div class="card">
+      <div class="card-header"><div><h3 class="card-title">Podcast Team Member</h3>
+      <p class="card-subtitle">Shark Co (PUCP)</p></div>
+      </div><p class="card-meta">📅 Mar 2025 - May 2025</p>
+      <p class="card-description">I helped organize and produce 
+        the first episode, offering financial tips for university 
+        students in a clear, easy-to-understand format.</p></div>
+      <div class="card"><div class="card-header"><div>
+      <h3 class="card-title">Volunteer — PUCP Forests Project</h3>
+      <p class="card-subtitle">Instituto de la Naturaleza, Tierra y Energía (INTE-PUCP)</p>
+      </div></div><p class="card-meta">📅 Dec 2023 - Jul 2024</p>
+      <p class="card-description">Organized and carried out tree surveys
+         around the university campus.</p></div>
+      </section>
+<section class="section fade-in" id="courses">
+        <h2 class="section-title">📚 Complementary Education</h2>
+        <div class="card"><div class="card-header"><div>
+          <h3 class="card-title">Python Workshop for Economists</h3>
+          <p class="card-subtitle">Q-Lab PUCP</p></div></div>
+          <p class="card-meta">📅 Mar 2025</p>
+          <p class="card-description">Practical introduction to Python applied to economic analysis.</p></div><div class="card"><div class="card-header"><div><h3 class="card-title">R Programming Workshop</h3><p class="card-subtitle">Q-Lab PUCP</p></div></div><p class="card-meta">📅 Mar 2025</p><p class="card-description">Fundamentals of R programming for data analysis.</p></div></section>
+<section class="section fade-in" id="interests">
+  <h2 class="section-title">🔎 Research Interests</h2>
+  <div class="card">
+    <p class="card-description">Macroeconomics • Fiscal policy • Public policy • Six Sigma • Sector indicators (corrugated packaging)</p>
+  </div>
+</section>
+</div></main></div>
+<script>// Theme toggle functionality
+      function toggleTheme() {
+        const html = document.documentElement
+        const themeToggle = document.querySelector(".theme-toggle .icon")
+
+        if (html.getAttribute("data-theme") === "dark") {
+          html.removeAttribute("data-theme")
+          themeToggle.textContent = "🌙"
+          localStorage.setItem("theme", "light")
+        } else {
+          html.setAttribute("data-theme", "dark")
+          themeToggle.textContent = "☀️"
+          localStorage.setItem("theme", "dark")
+        }
+      }
+
+      // Load saved theme
+      function loadTheme() {
+        const savedTheme = localStorage.getItem("theme")
+        const html = document.documentElement
+        const themeToggle = document.querySelector(".theme-toggle .icon")
+
+        if (savedTheme === "dark") {
+          html.setAttribute("data-theme", "dark")
+          themeToggle.textContent = "☀️"
+        } else {
+          themeToggle.textContent = "🌙"
+        }
+      }
+
+      
+      
+      document.addEventListener("DOMContentLoaded", function () {
+        loadTheme()
+      })
+
+function toggleSidebar(){
+  const sidebar = document.getElementById('sidebar');
+  if(!sidebar) return;
+  sidebar.classList.toggle('open');
+}
+
+// Close sidebar after clicking a link on mobile
+document.addEventListener('click', (e) => {
+  const sidebar = document.getElementById('sidebar');
+  if(!sidebar) return;
+
+  const isMobile = window.matchMedia('(max-width: 900px)').matches;
+  if(!isMobile) return;
+
+  const clickedLink = e.target && e.target.closest && e.target.closest('#sidebar a');
+  if(clickedLink){
+    sidebar.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>
